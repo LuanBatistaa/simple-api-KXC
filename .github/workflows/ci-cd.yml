@@ -84,6 +84,9 @@ jobs:
         with:
           terraform_version: 1.6.0
 
+      - name: FORCE UNLOCK DO STATE
+        run: terraform -chdir=terraform force-unlock -force "628ecffb-7677-a63d-90f0-59f75caefe12"    
+
       - name: Terraform Init
         run: terraform -chdir=terraform init -input=false -migrate-state=false
 
