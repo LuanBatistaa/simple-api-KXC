@@ -35,7 +35,6 @@ module "secrets" {
   source   = "./modules/secrets"
   secret_name = "my-db-secret"
   username    = var.secret_name
-  password    = random_password.db
 }
 
 module "rds" {
@@ -47,7 +46,7 @@ module "rds" {
   private_subnets      = module.vpc.private_subnets
   db_username       = module.secrets.secret_value["username"]
   db_password       = module.secrets.secret_value["password"]
-  ecs_sg_id            = module.ecs.ecs_sg_id
+  ecs_sg_id          = module.ecs.ecs_sg_id
   }
 
 
