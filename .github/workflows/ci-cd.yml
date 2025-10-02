@@ -85,7 +85,7 @@ jobs:
           terraform_version: 1.6.0
 
       - name: Terraform Init
-        run: terraform -chdir=terraform init
+        run: terraform -chdir=terraform init -input=false -migrate-state=false
 
       - name: Terraform Plan
         run: terraform -chdir=terraform plan -var="image_tag=${GITHUB_SHA}" -out=tfplan
