@@ -27,6 +27,8 @@ variable "alb_name" {
   description = "Nome do load balancer"
   type = string
 }
+<<<<<<< HEAD
+=======
 
 variable "secret_name" {
   description = "Nome do segredo no Secrets Manager"
@@ -41,3 +43,4 @@ variable "image_tag" {
 
 
 
+>>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6

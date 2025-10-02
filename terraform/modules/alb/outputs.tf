@@ -2,6 +2,10 @@ output "alb_dns_name" {
   value = aws_lb.this.dns_name
 }
 
+<<<<<<< HEAD
+output "alb_target_group_arn" {
+  value = aws_lb_target_group.this.arn
+=======
 output "alb_sg_id" {
   value = aws_security_group.alb_sg.id
 }
@@ -9,4 +13,5 @@ output "alb_sg_id" {
 output "alb_target_group_arn" {
   value       = aws_lb_target_group.this.arn
   description = "ARN do target group do ALB"
+>>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6
 }

@@ -1,96 +1,96 @@
-# name: CI/CD Production Pipeline
+name: CI/CD Production Pipeline
 
-# on:
-#   push:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - main
 
-# env:
-#   AWS_REGION: us-east-1
-#   ECR_REPOSITORY: 471112586010.dkr.ecr.us-east-1.amazonaws.com/my-api
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: 471112586010.dkr.ecr.us-east-1.amazonaws.com/my-api
 
-# jobs:
-#   build-test:
-#     name: Build and Test
-#     runs-on: ubuntu-latest
+jobs:
+  build-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Checkout Code
-#         uses: actions/checkout@v3
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-#       - name: Set up Node.js
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: 20
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
 
-#       - name: Install Dependencies
-#         run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-#       - name: Run Linter
-#         run: npm run lint || echo "Linting issues found"
+      - name: Run Linter
+        run: npm run lint || echo "Linting issues found"
 
-#       - name: Run Tests
-#         run: npm test
+      - name: Run Tests
+        run: npm test
 
 
-#   push-ecr:
-#     name: Push Docker to ECR
-#     needs: build-test
-#     runs-on: ubuntu-latest
+  push-ecr:
+    name: Push Docker to ECR
+    needs: build-test
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Checkout Code
-#         uses: actions/checkout@v3
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-#       - name: Build Docker Image
-#         run: docker build -t my-api:${GITHUB_SHA} .
+      - name: Build Docker Image
+        run: docker build -t my-api:${GITHUB_SHA} .
 
-#       - name: Configure AWS Credentials
-#         uses: aws-actions/configure-aws-credentials@v2
-#         with:
-#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#           aws-region: ${{ env.AWS_REGION }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
-#       - name: Login to Amazon ECR
-#         run: |
-#           aws ecr get-login-password --region ${{ env.AWS_REGION }} | \
-#           docker login --username AWS --password-stdin ${{ env.ECR_REPOSITORY }}
+      - name: Login to Amazon ECR
+        run: |
+          aws ecr get-login-password --region ${{ env.AWS_REGION }} | \
+          docker login --username AWS --password-stdin ${{ env.ECR_REPOSITORY }}
 
-#       - name: Tag Docker Image
-#         run: docker tag my-api:${GITHUB_SHA} ${{ env.ECR_REPOSITORY }}:${GITHUB_SHA}
+      - name: Tag Docker Image
+        run: docker tag my-api:${GITHUB_SHA} ${{ env.ECR_REPOSITORY }}:${GITHUB_SHA}
 
-#       - name: Push to ECR
-#         run: docker push ${{ env.ECR_REPOSITORY }}:${GITHUB_SHA}
+      - name: Push to ECR
+        run: docker push ${{ env.ECR_REPOSITORY }}:${GITHUB_SHA}
 
-#   terraform-deploy:
-#     name: Deploy Infrastructure and API
-#     needs: push-ecr
-#     runs-on: ubuntu-latest
+  terraform-deploy:
+    name: Deploy Infrastructure and API
+    needs: push-ecr
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Checkout Code
-#         uses: actions/checkout@v3
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-#       - name: Configure AWS Credentials
-#         uses: aws-actions/configure-aws-credentials@v2
-#         with:
-#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#           aws-region: ${{ env.AWS_REGION }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
-#       - name: Setup Terraform
-#         uses: hashicorp/setup-terraform@v2
-#         with:
-#           terraform_version: 1.6.0
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.0
 
     
 
-#       - name: Terraform Init
-#         run: terraform -chdir=terraform init -input=false -migrate-state=false
+      - name: Terraform Init
+        run: terraform -chdir=terraform init -input=false -migrate-state=false
 
-#       - name: Terraform Plan
-#         run: terraform -chdir=terraform plan -var="image_tag=${GITHUB_SHA}" -out=tfplan
+      - name: Terraform Plan
+        run: terraform -chdir=terraform plan -var="image_tag=${GITHUB_SHA}" -out=tfplan
 
-#       - name: Terraform Apply
-#         run: terraform -chdir=terraform apply -auto-approve tfplan
+      - name: Terraform Apply
+        run: terraform -chdir=terraform apply -auto-approve tfplan

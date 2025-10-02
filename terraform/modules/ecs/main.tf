@@ -1,13 +1,21 @@
 resource "aws_security_group" "ecs_sg" {
   name        = "${var.cluster_name}-sg"
+<<<<<<< HEAD
+  description = "Permite tráfego apenas do ALB"
+=======
   description = "Permite trafego apenas do ALB"
+>>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6
   vpc_id      = var.vpc_id
 
   ingress {
     from_port       = var.container_port
     to_port         = var.container_port
     protocol        = "tcp"
+<<<<<<< HEAD
+    security_groups = [aws_security_group.alb_sg.id]
+=======
     security_groups = [var.alb_sg_id]
+>>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6
   }
 
   egress {
@@ -39,12 +47,19 @@ resource "aws_ecs_task_definition" "this" {
   cpu                      = "256"
   memory                   = "512"
 
+<<<<<<< HEAD
+  container_definitions = jsonencode([
+    {
+      name      = var.container_name
+      image     = var.ecr_repository_url
+=======
  execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
 
   container_definitions = jsonencode([
     {
       name      = var.container_name
       image     = "${var.ecr_repository_url}:${var.image_tag}"
+>>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6
       essential = true
       portMappings = [
         {
@@ -75,6 +90,10 @@ resource "aws_ecs_service" "this" {
     container_name   = var.container_name
     container_port   = var.container_port
   }
+<<<<<<< HEAD
+
+  depends_on = [aws_lb_listener.http]
+=======
 }
 
 resource "aws_iam_role" "ecs_task_execution_role" {
@@ -96,4 +115,5 @@ resource "aws_iam_role" "ecs_task_execution_role" {
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
   role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+>>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6
 }
