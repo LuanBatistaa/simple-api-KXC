@@ -1,6 +1,6 @@
 resource "aws_security_group" "ecs_sg" {
   name        = "${var.cluster_name}-sg"
-  description = "Permite tráfego apenas do ALB"
+  description = "Permite trafego apenas do ALB"
   vpc_id      = var.vpc_id
 
   ingress {

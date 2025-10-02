@@ -1,7 +1,7 @@
 # Security Group para o RDS
 resource "aws_security_group" "rds_sg" {
   name        = "${var.rds_name}-sg"
-  description = "Permite tráfego apenas da API"
+  description = "Permite trafego apenas da API"
   vpc_id      = var.vpc_id
 
   ingress {
