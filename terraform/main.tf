@@ -33,6 +33,10 @@ module "ecs" {
   image_tag            = var.image_tag
   vpc_cidr          = var.vpc_cidr
   depends_on = [module.alb]
+  rds_name         = var.rds_name
+  db_host        = module.rds.rds_endpoint
+  db_user_arn    = module.secrets.username_arn
+  db_password_arn = module.secrets.password_arn
 }
 
 module "secrets" {

@@ -50,15 +50,15 @@ resource "aws_ecs_task_definition" "this" {
         }
       ]
       environment = [
-        { name = "DB_HOST",     value = module.rds.rds_endpoint },
+        { name = "DB_HOST",     value = var.db_host },
         { name = "DB_PORT",     value = "5432" },
         { name = "DB_DATABASE", value = var.rds_name },
         { name = "API_PORT",    value = "3000" }
       ]
 
       secrets = [
-        { name = "DB_USER", valueFrom = module.secrets.username_arn },
-        { name = "DB_PASSWORD", valueFrom = module.secrets.password_arn }
+        { name = "DB_USER", valueFrom = var.db_user_arn },
+        { name = "DB_PASSWORD", valueFrom = var.db_password_arn }
    ]
     }
   ])

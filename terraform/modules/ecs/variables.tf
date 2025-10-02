@@ -54,3 +54,20 @@ variable "vpc_cidr" {
   description = "CIDR da VPC"
   type        = string
 }
+
+variable "rds_name" {
+  description = "Nome do banco de dados RDS"
+  type        = string
+}
+
+variable "db_host" {
+  type = string
+}
+
+variable "db_user_arn" {
+  type = string
+}
+
+variable "db_password_arn" {
+  type = string
+}
