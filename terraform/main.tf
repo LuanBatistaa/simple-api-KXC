@@ -30,6 +30,8 @@ module "ecs" {
   desired_count        = 2
   alb_sg_id            = module.alb.alb_sg_id
   image_tag            = var.image_tag
+  depends_on = [module.alb.aws_lb_listener.http]
+
 }
 
 module "secrets" {
