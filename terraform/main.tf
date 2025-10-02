@@ -31,7 +31,7 @@ module "ecs" {
   desired_count        = 2
   alb_sg_id            = module.alb.alb_sg_id
   image_tag            = var.image_tag
-  vpc_endpoint_sg_id   = module.vpc.vpc_endpoint_sg_id
+  vpc_cidr          = var.vpc_cidr
   depends_on = [module.alb]
 }
 
