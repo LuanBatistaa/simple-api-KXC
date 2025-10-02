@@ -78,16 +78,22 @@ resource "aws_route_table_association" "private" {
 }
 
 locals {
+  # agrupa todas as subnets privadas por AZ
   private_subnets_by_az = {
-    for s in aws_subnet.private : s.availability_zone => s.id
+    for s in aws_subnet.private : s.availability_zone => s.id...
   }
+
+  # pega só a primeira subnet de cada AZ
+  private_subnets_one_per_az = [
+    for az, subnets in local.private_subnets_by_az : subnets[0]
+  ]
 }
 
 resource "aws_vpc_endpoint" "ecr_api" {
   vpc_id              = aws_vpc.this.id
   service_name        = "com.amazonaws.${var.aws_region}.ecr.api"
   vpc_endpoint_type   = "Interface"
-  subnet_ids          = values(local.private_subnets_by_az) # só 1 por AZ
+  subnet_ids          = local.private_subnets_one_per_az # só 1 por AZ
   private_dns_enabled = true
 }
 
@@ -95,7 +101,7 @@ resource "aws_vpc_endpoint" "ecr_dkr" {
   vpc_id              = aws_vpc.this.id
   service_name        = "com.amazonaws.${var.aws_region}.ecr.dkr"
   vpc_endpoint_type   = "Interface"
-  subnet_ids          = values(local.private_subnets_by_az)
+  subnet_ids          = local.private_subnets_one_per_az
   private_dns_enabled = true
 }
 
