@@ -1,17 +1,4 @@
-variable "db_name" {
-  
-}
 
-variable "db_username" {
-  description = "Usuário mestre do RDS"
-  type        = string
-}
-
-variable "db_password" {
-  description = "Senha do usuário mestre"
-  type        = string
-  sensitive   = true
-}
 
 variable "db_instance_class" {
   description = "Classe da instância RDS"
@@ -39,4 +26,17 @@ variable "rds_name" {
   description = "Nome do recurso RDS"
   type        = string
   default     = "my-rds"
+}
+
+variable "db_username" {
+  type = string
+}
+
+variable "db_password" {
+  type = string
+}
+
+variable "ecs_sg_id" {
+  description = "Security Group do ECS que terá acesso ao RDS"
+  type        = string
 }

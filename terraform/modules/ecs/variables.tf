@@ -39,3 +39,8 @@ variable "desired_count" {
   type        = number
   default     = 2
 }
+
+variable "alb_sg_id" {
+  type        = string
+  description = "ID do security group do ALB"
+}

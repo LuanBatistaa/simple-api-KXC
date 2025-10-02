@@ -9,3 +9,8 @@ output "ecs_service_name" {
 output "ecs_task_definition" {
   value = aws_ecs_task_definition.this.arn
 }
+
+output "ecs_sg_id" {
+  value = aws_security_group.ecs_sg.id
+}
+

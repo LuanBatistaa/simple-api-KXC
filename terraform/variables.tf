@@ -27,3 +27,13 @@ variable "alb_name" {
   description = "Nome do load balancer"
   type = string
 }
+
+variable "secret_name" {
+  description = "Nome do segredo no Secrets Manager"
+  type        = string
+  
+}
+
+
+
+

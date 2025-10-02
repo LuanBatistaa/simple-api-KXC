@@ -28,14 +28,26 @@ module "ecs" {
   container_name       = "my-api"
   container_port       = 3000
   desired_count        = 2
+  alb_sg_id            = module.alb.alb_sg_id
+}
+
+module "secrets" {
+  source   = "./modules/secrets"
+  secret_name = "my-db-secret"
+  username    = var.secret_name
+  password    = random_password.db
 }
 
 module "rds" {
-  source          = "./modules/rds"
-  db_name         = "mydb"
-  db_username     = "admin"
-  db_password     = "SuperSecret123!" # ou usar variável sensitive
-  vpc_id          = module.vpc.vpc_id
-  private_subnets = module.vpc.private_subnets
-  rds_name        = "my-rds"
-}
+  source               = "./modules/rds"
+  rds_name             = "my-rds"
+  db_instance_class    = "db.t3.micro"
+  db_allocated_storage = 20
+  vpc_id               = module.vpc.vpc_id
+  private_subnets      = module.vpc.private_subnets
+  db_username       = module.secrets.secret_value["username"]
+  db_password       = module.secrets.secret_value["password"]
+  ecs_sg_id            = module.ecs.ecs_sg_id
+  }
+
+

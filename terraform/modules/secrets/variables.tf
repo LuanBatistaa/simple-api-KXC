@@ -1,10 +1,14 @@
 variable "secret_name" {
-  description = "Nome do segredo"
   type        = string
+  description = "Nome do secret"
+}
+variable "username" {
+  type        = string
+  description = "Usuário do banco de dados"
 }
 
-variable "secret_value" {
-  description = "Valor do segredo"
+variable "password" {
   type        = string
-  sensitive   = true
+  description = "Senha do banco de dados"
 }
+
