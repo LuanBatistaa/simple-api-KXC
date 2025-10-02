@@ -1,7 +1,7 @@
 # Security Group do ALB (somente HTTP/HTTPS de fora)
 resource "aws_security_group" "alb_sg" {
   name        = "${var.alb_name}-sg"
-  description = "Permite tráfego HTTP/HTTPS"
+  description = "Permite trafego HTTP/HTTPS"
   vpc_id      = var.vpc_id
 
   ingress {
