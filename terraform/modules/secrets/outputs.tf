@@ -9,3 +9,10 @@ output "secret_value" {
   }
 }
 
+output "username_arn" {
+  value = aws_secretsmanager_secret_version.db_username.arn
+}
+
+output "password_arn" {
+  value = aws_secretsmanager_secret_version.db_password.arn
+}
