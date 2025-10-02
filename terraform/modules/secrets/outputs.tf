@@ -8,3 +8,4 @@ output "secret_value" {
     password = random_password.db.result
   }
 }
+

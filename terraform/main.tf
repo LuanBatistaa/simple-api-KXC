@@ -35,8 +35,9 @@ module "ecs" {
   depends_on = [module.alb]
   rds_name         = var.rds_name
   db_host        = module.rds.rds_endpoint
-  db_user_arn    = module.secrets.username_arn
-  db_password_arn = module.secrets.password_arn
+  db_user_arn     = module.secrets.credentials_arn["username"]
+  db_password_arn = module.secrets.credentials_arn["password"]
+
 }
 
 module "secrets" {
