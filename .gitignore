@@ -105,7 +105,8 @@ dist
 
 # Terraform
 .terraform/
-.tfstate
-.tfstate.backup
-.tfplan
+*.tfstate
+*.tfstate.backup
+*.tfplan
 
+*.docker
