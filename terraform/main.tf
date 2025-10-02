@@ -33,6 +33,10 @@ module "ecs" {
   image_tag            = var.image_tag
   vpc_cidr          = var.vpc_cidr
   depends_on = [module.alb]
+  api_port     = "3000"
+  db_host      = module.rds.rds_endpoint
+  db_port      = "5432"
+  db_database  = "my-rds"
 }
 
 module "secrets" {

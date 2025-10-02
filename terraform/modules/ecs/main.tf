@@ -36,22 +36,34 @@ resource "aws_ecs_task_definition" "this" {
   cpu                      = "256"
   memory                   = "512"
 
- execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
+  execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
 
-  container_definitions = jsonencode([
-    {
-      name      = var.container_name
-      image     = "${var.ecr_repository_url}:${var.image_tag}"
-      essential = true
-      portMappings = [
-        {
-          containerPort = var.container_port
-          hostPort      = var.container_port
-        }
-      ]
-    }
-  ])
+  container_definitions = jsonencode([{
+    name      = var.container_name
+    image     = "${var.ecr_repository_url}:${var.image_tag}"
+    essential = true
+    portMappings = [
+      { containerPort = var.container_port, hostPort = var.container_port }
+    ]
+    environment = [
+      { name = "API_PORT", value = var.api_port },
+      { name = "DB_HOST", value = var.db_host },
+      { name = "DB_PORT", value = var.db_port },
+      { name = "DB_DATABASE", value = var.db_database }
+    ]
+    secrets = [
+      {
+        name      = "DB_USER"
+        valueFrom = "${module.secrets.secret_arn}:username::"
+      },
+      {
+        name      = "DB_PASSWORD"
+        valueFrom = "${module.secrets.secret_arn}:password::"
+      }
+    ]
+  }])
 }
+
 
 resource "aws_ecs_service" "this" {
   name            = "${var.cluster_name}-service"
