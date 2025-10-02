@@ -39,8 +39,6 @@ variable "desired_count" {
   type        = number
   default     = 2
 }
-<<<<<<< HEAD
-=======
 
 variable "alb_sg_id" {
   type        = string
@@ -52,4 +50,4 @@ variable "image_tag" {
   type        = string
   default     = "latest"
 }
->>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6
+
