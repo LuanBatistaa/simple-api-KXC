@@ -23,7 +23,6 @@ variable "private_subnets" {
 variable "rds_name" {
   description = "Nome do recurso RDS"
   type        = string
-  default     = "my-rds"
 }
 
 variable "db_username" {

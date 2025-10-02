@@ -11,8 +11,8 @@ resource "aws_security_group" "ecs_sg" {
   }
 
   egress {
-  from_port   = 443
-  to_port     = 443
+  from_port   = 5432
+  to_port     = 5432
   protocol    = "TCP"
   cidr_blocks = ["0.0.0.0/0"]
 }
@@ -49,6 +49,17 @@ resource "aws_ecs_task_definition" "this" {
           hostPort      = var.container_port
         }
       ]
+      environment = [
+        { name = "DB_HOST",     value = module.rds.rds_endpoint },
+        { name = "DB_PORT",     value = "5432" },
+        { name = "DB_DATABASE", value = var.rds_name },
+        { name = "API_PORT",    value = "3000" }
+      ]
+
+      secrets = [
+        { name = "DB_USER", valueFrom = module.secrets.username_arn },
+        { name = "DB_PASSWORD", valueFrom = module.secrets.password_arn }
+   ]
     }
   ])
 }

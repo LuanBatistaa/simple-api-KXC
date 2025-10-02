@@ -6,3 +6,4 @@ private_subnet_cidrs = ["10.0.3.0/24", "10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/2
 alb_name = "my-alb"
 secret_name = "dbadmin"
 image_tag = "latest"
+rds_name = "my-rds"

@@ -39,6 +39,11 @@ variable "image_tag" {
   type        = string
 }
 
+variable "rds_name" {
+  description = "Nome do banco de dados RDS"
+  type        = string
+}
+
 
 
 
