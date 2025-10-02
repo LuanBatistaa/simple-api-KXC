@@ -63,32 +63,32 @@ jobs:
       - name: Push to ECR
         run: docker push ${{ env.ECR_REPOSITORY }}:${GITHUB_SHA}
 
-#   terraform-deploy:
-#     name: Deploy Infrastructure and API
-#     needs: push-ecr
-#     runs-on: ubuntu-latest
+  terraform-deploy:
+    name: Deploy Infrastructure and API
+    needs: push-ecr
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Checkout Code
-#         uses: actions/checkout@v3
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-#       - name: Configure AWS Credentials
-#         uses: aws-actions/configure-aws-credentials@v2
-#         with:
-#           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-#           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#           aws-region: ${{ env.AWS_REGION }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
-#       - name: Setup Terraform
-#         uses: hashicorp/setup-terraform@v2
-#         with:
-#           terraform_version: 1.6.0
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.0
 
-#       - name: Terraform Init
-#         run: terraform -chdir=terraform init
+      - name: Terraform Init
+        run: terraform -chdir=terraform init
 
-#       - name: Terraform Plan
-#         run: terraform -chdir=terraform plan -var="image_tag=${GITHUB_SHA}" -out=tfplan
+      - name: Terraform Plan
+        run: terraform -chdir=terraform plan -var="image_tag=${GITHUB_SHA}" -out=tfplan
 
-#       - name: Terraform Apply
-#         run: terraform -chdir=terraform apply -auto-approve tfplan
+      - name: Terraform Apply
+        run: terraform -chdir=terraform apply -auto-approve tfplan
