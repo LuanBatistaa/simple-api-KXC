@@ -88,9 +88,6 @@ jobs:
 
       - name: Terraform Init
         run: terraform -chdir=terraform init -input=false -migrate-state=false
-        
-      - name: FORCE UNLOCK DO STATE
-        run: terraform -chdir=terraform force-unlock -force "628ecffb-7677-a63d-90f0-59f75caefe12"    
 
       - name: Terraform Plan
         run: terraform -chdir=terraform plan -var="image_tag=${GITHUB_SHA}" -out=tfplan
