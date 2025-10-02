@@ -14,7 +14,7 @@ resource "aws_security_group" "ecs_sg" {
   from_port   = 443
   to_port     = 443
   protocol    = "TCP"
-  cidr_blocks = [var.vpc_cidr]
+  cidr_blocks = ["0.0.0.0/0"]
 }
 
   tags = {
@@ -22,7 +22,6 @@ resource "aws_security_group" "ecs_sg" {
   }
 }
 
-# ECS Cluster
 resource "aws_ecs_cluster" "this" {
   name = var.cluster_name
 
@@ -31,7 +30,6 @@ resource "aws_ecs_cluster" "this" {
   }
 }
 
-# Task Definition (Fargate)
 resource "aws_ecs_task_definition" "this" {
   family                   = var.cluster_name
   network_mode             = "awsvpc"
@@ -56,7 +54,6 @@ resource "aws_ecs_task_definition" "this" {
   ])
 }
 
-# ECS Service
 resource "aws_ecs_service" "this" {
   name            = "${var.cluster_name}-service"
   cluster         = aws_ecs_cluster.this.id

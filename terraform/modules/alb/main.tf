@@ -1,4 +1,3 @@
-# Security Group do ALB (somente HTTP/HTTPS de fora)
 resource "aws_security_group" "alb_sg" {
   name        = "${var.alb_name}-sg"
   description = "Permite trafego HTTP/HTTPS"
