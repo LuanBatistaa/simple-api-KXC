@@ -116,6 +116,16 @@ locals {
   private_subnets_group_2 = slice(local.private_subnets_one_per_az, ceil(length(local.private_subnets_one_per_az) / 2), length(local.private_subnets_one_per_az))
 }
 
+resource "aws_vpc_endpoint" "ecs" {
+  vpc_id              = aws_vpc.this.id
+  service_name        = "com.amazonaws.${var.aws_region}.ecs"
+  vpc_endpoint_type   = "Interface"
+  subnet_ids          = concat(local.private_subnets_group_1, local.private_subnets_group_2)
+  
+  private_dns_enabled = true
+  security_group_ids  = [aws_security_group.vpc_endpoint_sg.id] 
+}
+
 resource "aws_vpc_endpoint" "ecr_api" {
   vpc_id              = aws_vpc.this.id
   service_name        = "com.amazonaws.${var.aws_region}.ecr.api"
