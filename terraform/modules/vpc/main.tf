@@ -102,9 +102,9 @@ resource "aws_vpc_endpoint" "ecr_api" {
   vpc_id              = aws_vpc.this.id
   service_name        = "com.amazonaws.${var.aws_region}.ecr.api"
   vpc_endpoint_type   = "Interface"
-  # CORRIGIDO: Usa o primeiro grupo de sub-redes
   subnet_ids          = local.private_subnets_group_1 
   private_dns_enabled = true
+  security_group_ids  = [aws_security_group.ecs_sg.id]
 }
 
 # 2. ECR DKR (Grupo 2)
@@ -112,9 +112,9 @@ resource "aws_vpc_endpoint" "ecr_dkr" {
   vpc_id              = aws_vpc.this.id
   service_name        = "com.amazonaws.${var.aws_region}.ecr.dkr"
   vpc_endpoint_type   = "Interface"
-  # CORRIGIDO: Usa o segundo grupo de sub-redes, garantindo AZs diferentes do ECR API
   subnet_ids          = local.private_subnets_group_2
   private_dns_enabled = true
+  security_group_ids  = [aws_security_group.ecs_sg.id]
 }
 
 # 3. S3 GATEWAY (Não precisa de alteração)
