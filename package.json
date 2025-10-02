@@ -9,13 +9,9 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-<<<<<<< HEAD
-    "start": "node src/index.js"
-=======
+
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 0"
-    
->>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6
   },
   "keywords": [],
   "author": "",

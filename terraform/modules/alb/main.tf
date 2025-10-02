@@ -1,11 +1,7 @@
 # Security Group do ALB (somente HTTP/HTTPS de fora)
 resource "aws_security_group" "alb_sg" {
   name        = "${var.alb_name}-sg"
-<<<<<<< HEAD
-  description = "Permite tráfego HTTP/HTTPS"
-=======
   description = "Permite trafego HTTP/HTTPS"
->>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6
   vpc_id      = var.vpc_id
 
   ingress {
@@ -57,10 +53,8 @@ resource "aws_lb_target_group" "this" {
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
-<<<<<<< HEAD
-=======
    target_type = "ip"
->>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6
+
 
   health_check {
     protocol            = "HTTP"

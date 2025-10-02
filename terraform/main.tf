@@ -28,21 +28,10 @@ module "ecs" {
   container_name       = "my-api"
   container_port       = 3000
   desired_count        = 2
-<<<<<<< HEAD
-}
-
-module "rds" {
-  source          = "./modules/rds"
-  db_name         = "mydb"
-  db_username     = "admin"
-  db_password     = "SuperSecret123!" # ou usar variável sensitive
-  vpc_id          = module.vpc.vpc_id
-  private_subnets = module.vpc.private_subnets
-  rds_name        = "my-rds"
-}
-=======
   alb_sg_id            = module.alb.alb_sg_id
   image_tag            = var.image_tag
+  depends_on = [module.alb.aws_lb_listener.http]
+
 }
 
 module "secrets" {
@@ -62,6 +51,3 @@ module "rds" {
   db_password       = module.secrets.secret_value["password"]
   ecs_sg_id          = module.ecs.ecs_sg_id
   }
-
-
->>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6
