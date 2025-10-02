@@ -4,7 +4,6 @@ resource "aws_s3_bucket" "tf_state" {
 
 resource "aws_s3_bucket_versioning" "tf_state_versioning" {
   bucket = aws_s3_bucket.tf_state.id
-  provider = var.aws_region
   versioning_configuration {
     status = "Enabled"
   }
