@@ -83,6 +83,13 @@ resource "aws_security_group" "vpc_endpoint_sg" {
   name   = "vpc-endpoint-sg"
   vpc_id = aws_vpc.this.id
 
+  ingress {
+    from_port       = 443
+    to_port         = 443
+    protocol        = "tcp"
+    security_groups = [aws_security_group.ecs_sg.id]
+  }
+
   egress {
     from_port   = 443
     to_port     = 443
