@@ -44,3 +44,9 @@ variable "alb_sg_id" {
   type        = string
   description = "ID do security group do ALB"
 }
+
+variable "image_tag" {
+  description = "Tag da imagem Docker que será usada no ECS"
+  type        = string
+  default     = "latest"
+}

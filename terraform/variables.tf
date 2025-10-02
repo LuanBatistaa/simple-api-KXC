@@ -34,6 +34,10 @@ variable "secret_name" {
   
 }
 
+variable "image_tag" {
+  description = "Tag da imagem Docker a ser usada no ECS"
+  type        = string
+}
 
 
 

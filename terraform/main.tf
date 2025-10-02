@@ -29,6 +29,7 @@ module "ecs" {
   container_port       = 3000
   desired_count        = 2
   alb_sg_id            = module.alb.alb_sg_id
+  image_tag            = var.image_tag
 }
 
 module "secrets" {
