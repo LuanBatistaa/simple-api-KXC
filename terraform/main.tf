@@ -39,6 +39,7 @@ module "ecs" {
   db_database  = "my-rds"
 }
 
+
 module "secrets" {
   source   = "./modules/secrets"
   secret_name = "my-db-secret"
