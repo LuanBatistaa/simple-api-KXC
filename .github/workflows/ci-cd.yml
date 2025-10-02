@@ -32,8 +32,6 @@ jobs:
       - name: Run Tests
         run: npm test
 
-      - name: Build Docker Image
-        run: docker build -t my-api:${GITHUB_SHA} .
 
   push-ecr:
     name: Push Docker to ECR
@@ -43,6 +41,9 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: docker build -t my-api:${GITHUB_SHA} .
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
