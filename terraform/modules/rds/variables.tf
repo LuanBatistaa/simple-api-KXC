@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 variable "db_name" {
   
 }
@@ -12,6 +13,9 @@ variable "db_password" {
   type        = string
   sensitive   = true
 }
+=======
+
+>>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6
 
 variable "db_instance_class" {
   description = "Classe da instância RDS"
@@ -40,3 +44,19 @@ variable "rds_name" {
   type        = string
   default     = "my-rds"
 }
+<<<<<<< HEAD
+=======
+
+variable "db_username" {
+  type = string
+}
+
+variable "db_password" {
+  type = string
+}
+
+variable "ecs_sg_id" {
+  description = "Security Group do ECS que terá acesso ao RDS"
+  type        = string
+}
+>>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6

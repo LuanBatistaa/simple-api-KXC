@@ -39,3 +39,17 @@ variable "desired_count" {
   type        = number
   default     = 2
 }
+<<<<<<< HEAD
+=======
+
+variable "alb_sg_id" {
+  type        = string
+  description = "ID do security group do ALB"
+}
+
+variable "image_tag" {
+  description = "Tag da imagem Docker que será usada no ECS"
+  type        = string
+  default     = "latest"
+}
+>>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6

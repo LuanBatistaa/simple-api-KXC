@@ -28,6 +28,7 @@ module "ecs" {
   container_name       = "my-api"
   container_port       = 3000
   desired_count        = 2
+<<<<<<< HEAD
 }
 
 module "rds" {
@@ -39,3 +40,28 @@ module "rds" {
   private_subnets = module.vpc.private_subnets
   rds_name        = "my-rds"
 }
+=======
+  alb_sg_id            = module.alb.alb_sg_id
+  image_tag            = var.image_tag
+}
+
+module "secrets" {
+  source   = "./modules/secrets"
+  secret_name = "my-db-secret"
+  username    = var.secret_name
+}
+
+module "rds" {
+  source               = "./modules/rds"
+  rds_name             = "my-rds"
+  db_instance_class    = "db.t3.micro"
+  db_allocated_storage = 20
+  vpc_id               = module.vpc.vpc_id
+  private_subnets      = module.vpc.private_subnets
+  db_username       = module.secrets.secret_value["username"]
+  db_password       = module.secrets.secret_value["password"]
+  ecs_sg_id          = module.ecs.ecs_sg_id
+  }
+
+
+>>>>>>> 43c60fd03758c69e1c5174ed1ee0ec29740d63e6
