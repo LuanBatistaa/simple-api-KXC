@@ -16,7 +16,6 @@ resource "aws_security_group" "ecs_sg" {
   protocol    = "TCP"
   cidr_blocks = ["0.0.0.0/0"]
 }
-
   tags = {
     Name = "${var.cluster_name}-sg"
   }
