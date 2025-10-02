@@ -51,3 +51,8 @@ variable "image_tag" {
   default     = "latest"
 }
 
+variable "vpc_endpoint_sg_id" {
+  description = "Security Group ID do VPC Endpoint (ECR) para acesso de saída"
+  type        = string
+}
+
