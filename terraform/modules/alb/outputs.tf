@@ -10,3 +10,7 @@ output "alb_target_group_arn" {
   value       = aws_lb_target_group.this.arn
   description = "ARN do target group do ALB"
 }
+
+output "http_listener_arn" {
+  value = aws_lb_listener.http.arn
+}

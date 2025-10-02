@@ -1,4 +1,3 @@
-# Security Group para o RDS
 resource "aws_security_group" "rds_sg" {
   name        = "${var.rds_name}-sg"
   description = "Permite trafego apenas da API"
@@ -23,7 +22,6 @@ resource "aws_security_group" "rds_sg" {
   }
 }
 
-# Subnet Group
 resource "aws_db_subnet_group" "this" {
   name       = "${var.rds_name}-subnet-group"
   subnet_ids = var.private_subnets
@@ -33,11 +31,10 @@ resource "aws_db_subnet_group" "this" {
   }
 }
 
-# RDS PostgreSQL
 resource "aws_db_instance" "this" {
   identifier              = var.rds_name
   engine                  = "postgres"
-  engine_version          = "15.3"
+  engine_version          = "17.6"
   instance_class          = var.db_instance_class
   allocated_storage       = var.db_allocated_storage
   username                = var.db_username

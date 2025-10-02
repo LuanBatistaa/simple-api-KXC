@@ -9,3 +9,8 @@ output "public_subnets" {
 output "private_subnets" {
   value = aws_subnet.private[*].id
 }
+
+output "vpc_endpoint_sg_id" {
+  description = "Security Group ID do VPC Endpoint para ECR"
+  value       = aws_security_group.vpc_endpoint_sg.id
+}

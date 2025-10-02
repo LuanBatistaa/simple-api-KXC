@@ -50,4 +50,7 @@ variable "image_tag" {
   type        = string
   default     = "latest"
 }
-
+variable "vpc_cidr" {
+  description = "CIDR da VPC"
+  type        = string
+}

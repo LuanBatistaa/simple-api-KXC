@@ -4,6 +4,7 @@ module "vpc" {
   azs                 = var.azs
   public_subnet_cidrs = var.public_subnet_cidrs
   private_subnet_cidrs = var.private_subnet_cidrs
+  aws_region = var.aws_region
 }
 
 module "alb" {
@@ -30,8 +31,8 @@ module "ecs" {
   desired_count        = 2
   alb_sg_id            = module.alb.alb_sg_id
   image_tag            = var.image_tag
-  depends_on = [module.alb.aws_lb_listener.http]
-
+  vpc_cidr          = var.vpc_cidr
+  depends_on = [module.alb]
 }
 
 module "secrets" {
