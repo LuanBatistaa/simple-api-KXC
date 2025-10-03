@@ -1,5 +1,6 @@
 output "secret_arn" {
   value = aws_secretsmanager_secret.this.arn
+<<<<<<< HEAD
 }
 
 output "secret_value" {
@@ -16,3 +17,6 @@ output "username_arn" {
 output "password_arn" {
   value = aws_secretsmanager_secret_version.db_password.arn
 }
+=======
+}
+>>>>>>> 17ad1ad

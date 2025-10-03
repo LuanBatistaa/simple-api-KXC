@@ -55,6 +55,7 @@ variable "vpc_cidr" {
   type        = string
 }
 
+<<<<<<< HEAD
 variable "rds_name" {
   description = "Nome do banco de dados RDS"
   type        = string
@@ -70,4 +71,26 @@ variable "db_user_arn" {
 
 variable "db_password_arn" {
   type = string
+=======
+variable "api_port" {
+  description = "Porta que a API Node vai rodar"
+  type        = string
+  default     = "3000"
+}
+
+variable "db_host" {
+  description = "Endpoint do banco RDS"
+  type        = string
+}
+
+variable "db_port" {
+  description = "Porta do banco de dados"
+  type        = string
+  default     = "5432"
+}
+
+variable "db_database" {
+  description = "Nome do banco de dados"
+  type        = string
+>>>>>>> 17ad1ad
 }
