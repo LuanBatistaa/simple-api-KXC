@@ -92,3 +92,7 @@ variable "rds_sg_id" {
   description = "ID do security group do RDS"
   type        = string
 }
+variable "vpc_endpoint_sg_id" {
+  type        = string
+  description = "Security Group ID dos VPC endpoints (Secrets e ECR)"
+}

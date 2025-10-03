@@ -49,6 +49,10 @@ variable "db_name" {
   type        = string
 }
 
+variable "vpc_endpoint_sg_id" {
+  type        = string
+  description = "Security Group ID dos VPC endpoints (Secrets e ECR)"
+}
 
 
 
