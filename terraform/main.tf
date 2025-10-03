@@ -67,7 +67,7 @@ resource "aws_security_group_rule" "rds_ingress_from_ecs" {
   from_port                = 5432
   to_port                  = 5432
   protocol                 = "tcp"
-  security_group_id        = module.rds.output.rds_sg_id        # Target: The RDS SG
-  source_security_group_id = module.ecs.output.ecs_sg_id        # Source: The ECS SG
+  security_group_id        = module.rds.rds_sg_id        # Target: The RDS SG
+  source_security_group_id = module.ecs.ecs_sg_id        # Source: The ECS SG
   description              = "Allow traffic from ECS API to RDS database"
 }
