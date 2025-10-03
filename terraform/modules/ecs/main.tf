@@ -14,7 +14,7 @@ resource "aws_security_group" "ecs_sg" {
   from_port   = 5432
   to_port     = 5432
   protocol    = "TCP"
-  cidr_blocks = ["0.0.0.0/0"]
+  cidr_blocks = [var.rds_sg_id]
 }
   tags = {
     Name = "${var.cluster_name}-sg"

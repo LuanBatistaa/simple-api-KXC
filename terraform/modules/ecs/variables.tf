@@ -87,3 +87,8 @@ variable "db_name" {
   description = "Nome do banco de dados inicial"
   type        = string
 }
+
+variable "rds_sg_id" {
+  description = "ID do security group do RDS"
+  type        = string
+}
