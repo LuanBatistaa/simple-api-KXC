@@ -67,7 +67,6 @@ module "rds" {
   }
 
 
-# ECS → Secrets Manager
 resource "aws_security_group_rule" "ecs_to_secrets" {
   type              = "egress"
   from_port         = 443
@@ -78,18 +77,6 @@ resource "aws_security_group_rule" "ecs_to_secrets" {
   description       = "ECS pode acessar Secrets Manager"
 }
 
-# ECS → ECR
-resource "aws_security_group_rule" "ecs_to_ecr" {
-  type              = "egress"
-  from_port         = 443
-  to_port           = 443
-  protocol          = "tcp"
-  security_group_id = module.ecs.ecs_sg_id
-  cidr_blocks       = [var.vpc_cidr]
-  description       = "ECS pode acessar ECR"
-}
-
-# ECS → RDS
 resource "aws_security_group_rule" "ecs_to_rds" {
   type                     = "ingress"
   from_port                = 5432
