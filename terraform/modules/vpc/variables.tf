@@ -21,3 +21,8 @@ variable "private_subnet_cidrs" {
 variable "aws_region" {
   description = "região aws"
 }
+
+variable "vpc_endpoint_sg_id" {
+  type        = string
+  description = "Security Group ID dos VPC endpoints (Secrets e ECR)"
+}

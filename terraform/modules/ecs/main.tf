@@ -1,6 +1,6 @@
 resource "aws_security_group" "ecs_sg" {
   name        = "${var.cluster_name}-sg"
-  description = "Permite trafego apenas do ALB"
+  description = "Permite trafego apenas do ALB e VPC endpoints"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -11,12 +11,15 @@ resource "aws_security_group" "ecs_sg" {
   }
 
   egress {
-  from_port       = 443
-  to_port         = 443
-  protocol        = "tcp"
-  security_groups = [var.vpc_endpoint_sg_id]
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = { Name = "${var.cluster_name}-sg" }
 }
-}
+
 
 resource "aws_ecs_cluster" "this" {
   name = var.cluster_name
