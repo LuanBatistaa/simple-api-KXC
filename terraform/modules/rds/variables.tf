@@ -37,3 +37,8 @@ variable "ecs_sg_id" {
   description = "Security Group do ECS que terá acesso ao RDS"
   type        = string
 }
+
+variable "db_name" {
+  description = "Nome do banco de dados inicial"
+  type        = string
+}

@@ -44,6 +44,11 @@ variable "rds_name" {
   type        = string
 }
 
+variable "db_name" {
+  description = "Nome do banco de dados inicial"
+  type        = string
+}
+
 
 
 

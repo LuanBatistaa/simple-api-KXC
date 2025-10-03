@@ -82,3 +82,8 @@ variable "secret_arn" {
   description = "ARN do Secret do DB no Secrets Manager"
   type        = string
 }
+
+variable "db_name" {
+  description = "Nome do banco de dados inicial"
+  type        = string
+}

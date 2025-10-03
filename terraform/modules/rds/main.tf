@@ -46,6 +46,7 @@ resource "aws_db_instance" "this" {
   multi_az                = true
   storage_encrypted       = true
   auto_minor_version_upgrade = true
+  db_name = var.db_name
 
   tags = {
     Name = var.rds_name

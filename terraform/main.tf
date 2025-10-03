@@ -36,8 +36,9 @@ module "ecs" {
   api_port     = "3000"
   db_host      = module.rds.rds_address
   db_port      = "5432"
-  db_database  = "my-rds"
+  db_database = module.rds.rds_database
   secret_arn   = module.secrets.secret_arn
+  db_name = var.db_name
 }
 
 
@@ -57,4 +58,5 @@ module "rds" {
   db_username       = module.secrets.secret_value["username"]
   db_password       = module.secrets.secret_value["password"]
   ecs_sg_id          = module.ecs.ecs_sg_id
+  db_name = var.db_name
   }

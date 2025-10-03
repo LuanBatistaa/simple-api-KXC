@@ -12,3 +12,8 @@ output "rds_sg_id" {
   description = "Security Group do RDS"
   value       = aws_security_group.rds_sg.id
 }
+
+output "rds_database" {
+  description = "Nome do banco inicial"
+  value       = aws_db_instance.this.db_name
+}
