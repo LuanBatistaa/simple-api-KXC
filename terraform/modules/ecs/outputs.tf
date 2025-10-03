@@ -15,10 +15,16 @@ output "ecs_sg_id" {
 }
 
 output "username_arn" {
-  value = aws_secretsmanager_secret_version.db_username.arn
+  value = module.secrets.secret_arn
 }
 
 output "password_arn" {
-  value = aws_secretsmanager_secret_version.db_password.arn
+  value = module.secrets.secret_arn
 }
+
+
+
+
+
+
 
