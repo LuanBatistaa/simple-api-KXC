@@ -70,7 +70,6 @@ variable "db_host" {
 variable "db_port" {
   description = "Porta do banco de dados"
   type        = string
-  default     = "5432"
 }
 
 variable "db_database" {

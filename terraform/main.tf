@@ -34,7 +34,7 @@ module "ecs" {
   vpc_cidr          = var.vpc_cidr
   depends_on = [module.alb]
   api_port     = "3000"
-  db_host      = module.rds.rds_endpoint
+  db_host      = module.rds.rds_address
   db_port      = "5432"
   db_database  = "my-rds"
   secret_arn   = module.secrets.secret_arn

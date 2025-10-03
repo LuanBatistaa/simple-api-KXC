@@ -1,6 +1,6 @@
-output "rds_endpoint" {
+output "rds_address" {
   description = "Endpoint do RDS PostgreSQL"
-  value       = aws_db_instance.this.endpoint
+  value       = aws_db_instance.this.address
 }
 
 output "rds_port" {
