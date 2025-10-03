@@ -7,6 +7,7 @@ resource "aws_security_group" "rds_sg" {
     from_port       = 5432
     to_port         = 5432
     protocol        = "tcp"
+    
   }
 
   egress {
@@ -31,23 +32,19 @@ resource "aws_db_subnet_group" "this" {
 }
 
 resource "aws_db_instance" "this" {
-  identifier              = var.rds_name
-  engine                  = "postgres"
-  engine_version          = "17.6"
-  instance_class          = var.db_instance_class
-  allocated_storage       = var.db_allocated_storage
-  username                = var.db_username
-  password                = var.db_password
-  db_subnet_group_name    = aws_db_subnet_group.this.name
+  identifier           = var.rds_name
+  engine               = "postgres"
+  engine_version       = "17.6"
+  instance_class       = var.db_instance_class
+  allocated_storage    = var.db_allocated_storage
+  username             = var.db_username
+  password             = var.db_password
+  db_subnet_group_name = aws_db_subnet_group.this.name
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
-  skip_final_snapshot     = true
-  publicly_accessible     = false
-  multi_az                = true
-  storage_encrypted       = true
+  skip_final_snapshot  = true
+  publicly_accessible  = false
+  multi_az             = true
+  storage_encrypted    = true
   auto_minor_version_upgrade = true
-  db_name = var.db_name
-
-  tags = {
-    Name = var.rds_name
-  }
+  db_name              = var.db_name
 }
