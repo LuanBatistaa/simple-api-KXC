@@ -39,6 +39,7 @@ module "ecs" {
   db_database = module.rds.rds_database
   secret_arn   = module.secrets.secret_arn
   db_name = var.db_name
+  rds_sg_id = module.rds.rds_sg
 }
 
 
