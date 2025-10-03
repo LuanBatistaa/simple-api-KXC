@@ -76,5 +76,10 @@ variable "db_port" {
 variable "db_database" {
   description = "Nome do banco de dados"
   type        = string
-  
+
+}
+
+variable "secret_arn" {
+  description = "ARN do Secret do DB no Secrets Manager"
+  type        = string
 }

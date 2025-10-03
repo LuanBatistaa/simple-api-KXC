@@ -37,7 +37,7 @@ module "ecs" {
   db_host      = module.rds.rds_endpoint
   db_port      = "5432"
   db_database  = "my-rds"
-  secret_arn           = module.secrets.secret_arn
+  secret_arn   = module.secrets.secret_arn
 }
 
 
