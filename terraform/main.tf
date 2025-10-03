@@ -1,11 +1,14 @@
 module "vpc" {
-  source              = "./modules/vpc"
-  vpc_cidr            = var.vpc_cidr
-  azs                 = var.azs
-  public_subnet_cidrs = var.public_subnet_cidrs
+  source               = "./modules/vpc"
+  vpc_cidr             = var.vpc_cidr
+  public_subnet_cidrs  = var.public_subnet_cidrs
   private_subnet_cidrs = var.private_subnet_cidrs
-  aws_region = var.aws_region
+  azs                  = var.azs
+  aws_region           = var.aws_region
+  
 }
+
+
 
 module "alb" {
   source        = "./modules/alb"
@@ -44,9 +47,9 @@ module "ecs" {
 
 
 module "secrets" {
-  source   = "./modules/secrets"
-  secret_name = "my-db-secret"
-  username    = var.secret_name
+  source      = "./modules/secrets"
+  secret_name = "db-credentials"
+  username    = "dbadmin"
 }
 
 module "rds" {
@@ -63,12 +66,36 @@ module "rds" {
   }
 
 
-resource "aws_security_group_rule" "rds_ingress_from_ecs" {
+# ECS → Secrets Manager
+resource "aws_security_group_rule" "ecs_to_secrets" {
+  type              = "egress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = module.ecs.ecs_sg_id
+  cidr_blocks       = [var.vpc_cidr]
+  description       = "ECS pode acessar Secrets Manager"
+}
+
+# ECS → ECR
+resource "aws_security_group_rule" "ecs_to_ecr" {
+  type              = "egress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  security_group_id = module.ecs.ecs_sg_id
+  cidr_blocks       = [var.vpc_cidr]
+  description       = "ECS pode acessar ECR"
+}
+
+# ECS → RDS
+resource "aws_security_group_rule" "ecs_to_rds" {
   type                     = "ingress"
   from_port                = 5432
   to_port                  = 5432
   protocol                 = "tcp"
-  security_group_id        = module.rds.rds_sg_id        # Target: The RDS SG
-  source_security_group_id = module.ecs.ecs_sg_id        # Source: The ECS SG
-  description              = "Allow traffic from ECS API to RDS database"
+  security_group_id        = module.rds.rds_sg_id
+  source_security_group_id = module.ecs.ecs_sg_id
+  description              = "Permite ECS acessar RDS PostgreSQL"
 }
+
