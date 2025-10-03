@@ -150,3 +150,15 @@ resource "aws_vpc_endpoint" "s3_gateway" {
   vpc_endpoint_type = "Gateway"
   route_table_ids   = [aws_route_table.private.id] 
 }
+
+resource "aws_vpc_endpoint" "secretsmanager" {
+  vpc_id            = aws_vpc.this.id
+  service_name      = "com.amazonaws.${var.aws_region}.secretsmanager"
+  vpc_endpoint_type = "Interface"
+
+  # pode usar as mesmas subnets privadas onde as tasks rodam
+  subnet_ids        = concat(local.private_subnets_group_1, local.private_subnets_group_2)
+  
+  private_dns_enabled = true
+  security_group_ids  = [aws_security_group.vpc_endpoint_sg.id]
+}
