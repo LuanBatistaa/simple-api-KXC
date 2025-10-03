@@ -39,6 +39,7 @@ module "ecs" {
   secret_arn   = module.secrets.secret_arn
   db_name = var.db_name
   rds_sg_id = module.rds.rds_sg_id
+  vpc_endpoint_sg_id = module.vpc.vpc_endpoint_sg_id
 }
 
 
