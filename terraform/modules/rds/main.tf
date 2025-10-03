@@ -34,13 +34,13 @@ resource "aws_db_subnet_group" "this" {
 resource "aws_db_instance" "this" {
   identifier              = var.rds_name
   engine                  = "postgres"
-  engine_version          = "17.6"
+  engine_version          = "16.0"
   instance_class          = var.db_instance_class
   allocated_storage       = var.db_allocated_storage
   username                = var.db_username
   password                = var.db_password
   db_subnet_group_name    = aws_db_subnet_group.this.name
-  vpc_security_group_ids = [var.ecs_sg_id]
+  vpc_security_group_ids = [aws_security_group.rds_sg.id]
   skip_final_snapshot     = true
   publicly_accessible     = false
   multi_az                = true
