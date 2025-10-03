@@ -157,7 +157,7 @@ resource "aws_vpc_endpoint" "secretsmanager" {
   vpc_endpoint_type = "Interface"
 
   # pode usar as mesmas subnets privadas onde as tasks rodam
-  subnet_ids        = var.private_subnet_cidrs
+  subnet_ids        = concat(local.private_subnets_group_1, local.private_subnets_group_2)
   
   private_dns_enabled = true
   security_group_ids  = [aws_security_group.vpc_endpoint_sg.id]
