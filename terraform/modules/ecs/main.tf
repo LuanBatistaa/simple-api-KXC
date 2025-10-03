@@ -37,7 +37,7 @@ resource "aws_ecs_task_definition" "this" {
   memory                   = "512"
 
  execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
- 
+
   container_definitions = jsonencode([{
     name      = var.container_name
     image     = "${var.ecr_repository_url}:${var.image_tag}"
@@ -54,11 +54,11 @@ resource "aws_ecs_task_definition" "this" {
     secrets = [
       {
         name      = "DB_USER"
-        valueFrom = "${module.secrets.secret_arn}:username::"
+        valueFrom = "${var.secret_arn}:username::"
       },
       {
         name      = "DB_PASSWORD"
-        valueFrom = "${module.secrets.secret_arn}:password::"
+        valueFrom = "${var.secret_arn}:password::"
       }
     ]
  }])
