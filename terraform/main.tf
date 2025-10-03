@@ -33,18 +33,10 @@ module "ecs" {
   image_tag            = var.image_tag
   vpc_cidr          = var.vpc_cidr
   depends_on = [module.alb]
-<<<<<<< HEAD
-  rds_name         = var.rds_name
-  db_host        = module.rds.rds_endpoint
-  db_user_arn     = module.secrets.credentials_arn["username"]
-  db_password_arn = module.secrets.credentials_arn["password"]
-
-=======
   api_port     = "3000"
   db_host      = module.rds.rds_endpoint
   db_port      = "5432"
   db_database  = "my-rds"
->>>>>>> 17ad1ad
 }
 
 

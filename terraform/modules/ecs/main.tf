@@ -36,34 +36,8 @@ resource "aws_ecs_task_definition" "this" {
   cpu                      = "256"
   memory                   = "512"
 
-  execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
-
-<<<<<<< HEAD
-  container_definitions = jsonencode([
-    {
-      name      = var.container_name
-      image     = "${var.ecr_repository_url}:${var.image_tag}"
-      essential = true
-      portMappings = [
-        {
-          containerPort = var.container_port
-          hostPort      = var.container_port
-        }
-      ]
-      environment = [
-        { name = "DB_HOST",     value = var.db_host },
-        { name = "DB_PORT",     value = "5432" },
-        { name = "DB_DATABASE", value = var.rds_name },
-        { name = "API_PORT",    value = "3000" }
-      ]
-
-      secrets = [
-        { name = "DB_USER", valueFrom = var.db_user_arn },
-        { name = "DB_PASSWORD", valueFrom = var.db_password_arn }
-   ]
-    }
-  ])
-=======
+ execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
+ 
   container_definitions = jsonencode([{
     name      = var.container_name
     image     = "${var.ecr_repository_url}:${var.image_tag}"
@@ -87,8 +61,7 @@ resource "aws_ecs_task_definition" "this" {
         valueFrom = "${module.secrets.secret_arn}:password::"
       }
     ]
-  }])
->>>>>>> 17ad1ad
+ }])
 }
 
 
