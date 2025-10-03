@@ -32,14 +32,14 @@ module "ecs" {
   alb_sg_id            = module.alb.alb_sg_id
   image_tag            = var.image_tag
   vpc_cidr          = var.vpc_cidr
-  depends_on = [module.alb]
+  depends_on = [module.alb, module.rds]
   api_port     = "3000"
   db_host      = module.rds.rds_address
   db_port      = "5432"
   db_database = module.rds.rds_database
   secret_arn   = module.secrets.secret_arn
   db_name = var.db_name
-  rds_sg_id = module.rds.rds_sg
+  rds_sg_id = module.rds.rds_sg_id
 }
 
 
