@@ -10,12 +10,12 @@ resource "aws_security_group" "ecs_sg" {
     security_groups = [var.alb_sg_id]
   }
 
-  egress {
-  from_port   = 5432
-  to_port     = 5432
-  protocol    = "TCP"
-  cidr_blocks = [var.rds_sg_id]
-}
+#   egress {
+#   from_port   = 5432
+#   to_port     = 5432
+#   protocol    = "TCP"
+#   security_groups = [var.rds_sg_id]
+# }
   tags = {
     Name = "${var.cluster_name}-sg"
   }

@@ -32,7 +32,6 @@ module "ecs" {
   alb_sg_id            = module.alb.alb_sg_id
   image_tag            = var.image_tag
   vpc_cidr          = var.vpc_cidr
-  depends_on = [module.alb, module.rds]
   api_port     = "3000"
   db_host      = module.rds.rds_address
   db_port      = "5432"
@@ -61,3 +60,14 @@ module "rds" {
   ecs_sg_id          = module.ecs.ecs_sg_id
   db_name = var.db_name
   }
+
+
+resource "aws_security_group_rule" "rds_ingress_from_ecs" {
+  type                     = "ingress"
+  from_port                = 5432
+  to_port                  = 5432
+  protocol                 = "tcp"
+  security_group_id        = module.rds.output.rds_sg_id        # Target: The RDS SG
+  source_security_group_id = module.ecs.output.ecs_sg_id        # Source: The ECS SG
+  description              = "Allow traffic from ECS API to RDS database"
+}
