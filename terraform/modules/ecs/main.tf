@@ -14,9 +14,7 @@ resource "aws_security_group" "ecs_sg" {
   from_port       = 443
   to_port         = 443
   protocol        = "tcp"
-  security_groups = [
-    aws_security_group.vpc_endpoint_sg.id  # SG dos VPC endpoints (Secrets e ECR)
-  ]
+  security_groups = [var.vpc_endpoint_sg_id]
 }
 }
 
