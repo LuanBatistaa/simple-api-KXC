@@ -44,6 +44,13 @@ const express = require('express');
             const error = { 'message': 'Erro ao se conectar ao banco', 'request_id': i }
             console.log(error)
             console.log(e)
+            console.log({
+            user: process.env.DB_USER,
+            host: process.env.DB_HOST,
+            database: process.env.DB_DATABASE,
+            port: process.env.DB_PORT
+            })
+
 
             res.status(500);
             res.send(error)
