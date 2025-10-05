@@ -87,7 +87,7 @@ jobs:
     
 
       - name: Terraform Init
-        run: terraform -chdir=terraform init -input=false -migrate-state=false
+        run: terraform -chdir=terraform init -reconfigure
 
       - name: Terraform Plan
         run: terraform -chdir=terraform plan -var="image_tag=${GITHUB_SHA}" -out=tfplan
