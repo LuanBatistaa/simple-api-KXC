@@ -13,11 +13,6 @@ variable "ecs_name" {
 
 }
 
-variable "alb_name" {
-  type = string
-
-}
-
 variable "rds_name" {
   type = string
 

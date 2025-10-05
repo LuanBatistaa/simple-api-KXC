@@ -1,10 +1,10 @@
-terraform {
+# terraform {
 
-  backend "s3" {
-    bucket         = "my-bucket-state-api"
-    key            = "simple-api/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraform-locks"
-    encrypt        = true
-  }
-}
+#   backend "s3" {
+#     bucket         = "my-bucket-state-api"
+#     key            = "simple-api/terraform.tfstate"
+#     region         = "us-east-1"
+#     dynamodb_table = "terraform-locks"
+#     encrypt        = true
+#   }
+# }

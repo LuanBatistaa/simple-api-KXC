@@ -49,7 +49,7 @@ module "alb" {
   vpc_id        = module.vpc.vpc_id
   public_subnets = module.vpc.public_subnets
   alb_name      = var.alb_name
-  alb_sg_id      = module.alb_sg.alb_sg_id
+  alb_sg_id      = module.security.alb_sg_id
 }
 
 module "ecs" {
@@ -73,5 +73,4 @@ module "ecs" {
   secret_arn   = module.secrets.secret_arn
   db_name = var.db_name
   ecs_sg_id = module.security.ecs_sg_id
-
 }

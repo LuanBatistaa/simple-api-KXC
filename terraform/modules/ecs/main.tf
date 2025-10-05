@@ -74,7 +74,7 @@ resource "aws_ecs_service" "this" {
 
   network_configuration {
     subnets         = var.private_subnets
-    security_groups = [var.ecs_sg.id]
+    security_groups = [var.ecs_sg_id]
     assign_public_ip = false
   }
 
@@ -104,4 +104,9 @@ resource "aws_iam_role" "ecs_task_execution_role" {
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
   role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_secrets_policy" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
 }
