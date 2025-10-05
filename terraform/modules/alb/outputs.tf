@@ -14,3 +14,7 @@ output "alb_target_group_arn" {
 output "http_listener_arn" {
   value = aws_lb_listener.http.arn
 }
+
+output "alb_name" {
+  value = aws_lb.this.name
+}

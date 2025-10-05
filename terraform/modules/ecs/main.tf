@@ -1,25 +1,25 @@
-resource "aws_security_group" "ecs_sg" {
-  name        = "${var.cluster_name}-sg"
-  description = "Permite trafego apenas do ALB"
-  vpc_id      = var.vpc_id
+# resource "aws_security_group" "ecs_sg" {
+#   name        = "${var.cluster_name}-sg"
+#   description = "Permite trafego apenas do ALB"
+#   vpc_id      = var.vpc_id
 
-  ingress {
-    from_port       = var.container_port
-    to_port         = var.container_port
-    protocol        = "tcp"
-    security_groups = [var.alb_sg_id]
-  }
+#   ingress {
+#     from_port       = var.container_port
+#     to_port         = var.container_port
+#     protocol        = "tcp"
+#     security_groups = [var.alb_sg_id]
+#   }
 
-  egress {
-  from_port   = 5432
-  to_port     = 5432
-  protocol    = "TCP"
-  cidr_blocks = ["0.0.0.0/0"]
-}
-  tags = {
-    Name = "${var.cluster_name}-sg"
-  }
-}
+#   egress {
+#   from_port   = 5432
+#   to_port     = 5432
+#   protocol    = "TCP"
+#   cidr_blocks = ["0.0.0.0/0"]
+# }
+#   tags = {
+#     Name = "${var.cluster_name}-sg"
+#   }
+# }
 
 resource "aws_ecs_cluster" "this" {
   name = var.cluster_name
@@ -74,7 +74,7 @@ resource "aws_ecs_service" "this" {
 
   network_configuration {
     subnets         = var.private_subnets
-    security_groups = [aws_security_group.ecs_sg.id]
+    security_groups = [var.ecs_sg.id]
     assign_public_ip = false
   }
 

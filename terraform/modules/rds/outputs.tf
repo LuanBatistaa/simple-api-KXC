@@ -6,14 +6,15 @@ output "rds_address" {
 output "rds_port" {
   description = "Porta do RDS"
   value       = aws_db_instance.this.port
-}
-
-output "rds_sg_id" {
-  description = "Security Group do RDS"
-  value       = aws_security_group.rds_sg.id
+  
 }
 
 output "rds_database" {
   description = "Nome do banco inicial"
   value       = aws_db_instance.this.db_name
+}
+
+output "rds_name" {
+  description = "Nome do recurso RDS"
+  value       = aws_db_instance.this.identifier
 }

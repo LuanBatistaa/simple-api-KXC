@@ -25,20 +25,22 @@ variable "rds_name" {
   type        = string
 }
 
-variable "db_username" {
-  type = string
-}
-
-variable "db_password" {
-  type = string
-}
-
-variable "ecs_sg_id" {
-  description = "Security Group do ECS que terá acesso ao RDS"
+variable "db_name" {
+  description = "Nome do banco de dados inicial"
   type        = string
 }
 
-variable "db_name" {
-  description = "Nome do banco de dados inicial"
+variable "db_secret_arn" {
+  description = "ARN do segredo no Secrets Manager"
+  type        = string
+}
+
+variable "rds_sg_id" {
+  description = "ID do security group para RDS"
+  type        = string
+}
+
+variable "ecs_sg_id" {
+  description = "ID do security group para ECS"
   type        = string
 }

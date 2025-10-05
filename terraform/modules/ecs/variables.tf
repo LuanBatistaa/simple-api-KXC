@@ -38,6 +38,7 @@ variable "desired_count" {
   description = "Número de tasks ECS"
   type        = number
   default     = 2
+
 }
 
 variable "alb_sg_id" {
@@ -59,7 +60,6 @@ variable "vpc_cidr" {
 variable "api_port" {
   description = "Porta que a API Node vai rodar"
   type        = string
-  default     = "3000"
 }
 
 variable "db_host" {
@@ -86,4 +86,9 @@ variable "secret_arn" {
 variable "db_name" {
   description = "Nome do banco de dados inicial"
   type        = string
+}
+variable "ecs_sg_id" {
+  type        = string
+  description = "ID do security group do ECS"
+  
 }

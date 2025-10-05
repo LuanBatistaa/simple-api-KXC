@@ -7,4 +7,5 @@ output "secret_value" {
     username = var.username
     password = random_password.db.result
   }
+  sensitive = true
 }

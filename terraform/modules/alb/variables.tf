@@ -19,3 +19,7 @@ variable "alb_port" {
   type        = number
   default     = 80
 }
+
+variable "alb_sg_id" {
+  type = string
+}
