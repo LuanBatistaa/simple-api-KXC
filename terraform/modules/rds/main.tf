@@ -31,9 +31,6 @@ resource "aws_db_subnet_group" "this" {
   }
 }
 
-data "aws_secretsmanager_secret_version" "db_secret" {
-  secret_id = var.db_secret_arn
-}
 
 resource "aws_db_instance" "this" {
   identifier              = var.rds_name
@@ -41,8 +38,8 @@ resource "aws_db_instance" "this" {
   engine_version          = "17.6"
   instance_class          = var.db_instance_class
   allocated_storage       = var.db_allocated_storage
-  username                = jsondecode(data.aws_secretsmanager_secret_version.db_secret.secret_string)["username"]
-  password                = jsondecode(data.aws_secretsmanager_secret_version.db_secret.secret_string)["password"]
+  username                = var.db_username
+  password                = var.db_password
   db_subnet_group_name    = aws_db_subnet_group.this.name
   vpc_security_group_ids = [var.rds_sg_id]
   skip_final_snapshot     = true

@@ -36,10 +36,11 @@ module "rds" {
   db_allocated_storage = 20
   vpc_id               = module.vpc.vpc_id
   private_subnets      = module.vpc.private_subnets
-  db_secret_arn = module.secrets.secret_arn
   ecs_sg_id          = module.security.ecs_sg_id
   db_name = var.db_name
   rds_sg_id = module.security.rds_sg_id
+  db_username = module.secrets.secret_values["username"]
+  db_password = module.secrets.secret_values["password"]
 
   }
 
