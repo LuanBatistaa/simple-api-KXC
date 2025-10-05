@@ -39,8 +39,8 @@ module "rds" {
   ecs_sg_id          = module.security.ecs_sg_id
   db_name = var.db_name
   rds_sg_id = module.security.rds_sg_id
-  db_username = module.secrets.secret_values["username"]
-  db_password = module.secrets.secret_values["password"]
+  db_username = module.secrets.secret_value["username"]
+  db_password = module.secrets.secret_value["password"]
 
   }
 
