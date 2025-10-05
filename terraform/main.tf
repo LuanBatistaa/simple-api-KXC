@@ -14,7 +14,7 @@ module "ecr" {
 
 module "secrets" {
   source   = "./modules/secrets"
-  secret_name = "my-db-secret"
+  secret_name = "my-db-secret-kxc"
   username    = var.db_username
 }
 
