@@ -150,3 +150,22 @@ resource "aws_vpc_endpoint" "s3_gateway" {
   vpc_endpoint_type = "Gateway"
   route_table_ids   = [aws_route_table.private.id] 
 }
+
+resource "aws_vpc_endpoint" "secretsmanager" {
+  vpc_id            = aws_vpc.this.id
+  service_name      = "com.amazonaws.${var.aws_region}.secretsmanager"
+  vpc_endpoint_type = "Interface"
+
+  # Use as mesmas subnets privadas que você já usa para ECS
+  subnet_ids = concat(local.private_subnets_group_1, local.private_subnets_group_2)
+
+  # Habilita DNS privado para resolver secretsmanager.us-east-1.amazonaws.com internamente
+  private_dns_enabled = true
+
+  # Grupo de segurança que permite tráfego da ECS
+  security_group_ids = [aws_security_group.vpc_endpoint_sg.id]
+
+  tags = {
+    Name = "SecretsManagerEndpoint"
+  }
+}
