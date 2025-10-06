@@ -23,10 +23,6 @@ variable "private_subnet_cidrs" {
   type        = list(string)
 }
 
-
-
-##########################
-
 variable "alb_name" {
   description = "Nome do Application Load Balancer"
   type        = string
@@ -38,8 +34,6 @@ variable "db_username" {
   default     = "admin"
   description = "Nome do usuário do banco"
 }
-
-##########################
 
 variable "image_tag" {
   description = "Tag da imagem Docker a ser usada no ECS"

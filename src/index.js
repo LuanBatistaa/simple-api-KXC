@@ -40,7 +40,7 @@ const express = require('express');
 
             await client.end()
 
-            const response = { 'message': "Conectado ao banco", 'version': version, 'request_id': i }
+            const response = { 'message': "BOAAAA LUAN, VOCÊ SE CONECTOU AO BANCO KXC.", 'version': version, 'request_id': i }
             console.log(response)
             res.send(response)
         } catch (e) {
