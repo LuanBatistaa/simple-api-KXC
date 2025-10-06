@@ -37,6 +37,8 @@ resource "aws_ecs_task_definition" "this" {
   memory                   = "512"
 
  execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
+ task_role_arn = aws_iam_role.ecs_task_role.arn
+
 
   container_definitions = jsonencode([{
     name      = var.container_name
@@ -71,6 +73,8 @@ resource "aws_ecs_service" "this" {
   task_definition = aws_ecs_task_definition.this.arn
   desired_count   = var.desired_count
   launch_type     = "FARGATE"
+  enable_execute_command = true
+
 
   network_configuration {
     subnets         = var.private_subnets
@@ -98,6 +102,43 @@ resource "aws_iam_role" "ecs_task_execution_role" {
       Effect = "Allow",
       Sid    = ""
     }]
+  })
+}
+
+resource "aws_iam_role" "ecs_task_role" {
+  name = "ecsTaskRole"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [{
+      Effect = "Allow",
+      Principal = {
+        Service = "ecs-tasks.amazonaws.com"
+      },
+      Action = "sts:AssumeRole"
+    }]
+  })
+}
+
+# Política mínima para o ECS Exec (Session Manager)
+resource "aws_iam_role_policy" "ecs_task_role_policy" {
+  name = "ecsTaskRolePolicy"
+  role = aws_iam_role.ecs_task_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect   = "Allow",
+        Action   = [
+          "ssmmessages:CreateControlChannel",
+          "ssmmessages:CreateDataChannel",
+          "ssmmessages:OpenControlChannel",
+          "ssmmessages:OpenDataChannel"
+        ],
+        Resource = "*"
+      }
+    ]
   })
 }
 

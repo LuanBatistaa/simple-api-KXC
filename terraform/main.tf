@@ -75,4 +75,5 @@ module "ecs" {
   secret_arn   = module.secrets.secret_arn
   db_name = var.db_name
   ecs_sg_id = module.security.ecs_sg_id
+  
 }
