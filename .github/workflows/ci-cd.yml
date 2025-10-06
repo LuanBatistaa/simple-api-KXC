@@ -58,12 +58,10 @@ jobs:
           docker login --username AWS --password-stdin ${{ env.ECR_REPOSITORY }}
 
       - name: Tag Docker Image
-        run: |
-          docker tag my-api:${GITHUB_SHA} ${{ env.ECR_REPOSITORY }}:${GITHUB_SHA}
+        run: docker tag my-api:${GITHUB_SHA} ${{ env.ECR_REPOSITORY }}:${GITHUB_SHA}
 
       - name: Push to ECR
-        run: |
-          docker push ${{ env.ECR_REPOSITORY }}:${GITHUB_SHA}
+        run: docker push ${{ env.ECR_REPOSITORY }}:${GITHUB_SHA}
 
   terraform-deploy:
     name: Deploy Infrastructure and API
