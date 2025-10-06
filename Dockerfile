@@ -1,6 +1,8 @@
 
 FROM node:20-alpine AS build
 
+RUN apk add --no-cache postgresql-client
+
 WORKDIR /app
 
 COPY package*.json ./
