@@ -5,6 +5,7 @@ module "vpc" {
   public_subnet_cidrs = var.public_subnet_cidrs
   private_subnet_cidrs = var.private_subnet_cidrs
   aws_region = var.aws_region
+  ecs_sg_id = module.security.ecs_sg_id
 }
 
 module "ecr" {

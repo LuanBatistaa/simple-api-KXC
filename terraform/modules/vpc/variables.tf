@@ -21,3 +21,9 @@ variable "private_subnet_cidrs" {
 variable "aws_region" {
   description = "região aws"
 }
+
+variable "ecs_sg_id" {
+  description = "Security Group ID for ECS tasks"
+  type        = string
+  
+}
